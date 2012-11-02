@@ -1,0 +1,2498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified">
+<!--######################################################################### -->
+<!--# XSD for BiscuitML and Tactile                                                    # -->
+<!--# Version               : beta 0.1                                      # -->
+<!--# Author                : RB                                            # -->
+<!--# Release Date          : Oct. 2011                                     # -->
+<!--######################################################################### -->
+<!--####################### PAGE STRUCTURE ###############-->
+<xs:element name="page">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+					<xs:element name="avs" maxOccurs="1" minOccurs="0" type="avsType"/>
+					<xs:element name="forward" maxOccurs="1" minOccurs="0" type="forwardType"/>
+					<xs:element name="FORWARD" maxOccurs="1" minOccurs="0" type="forwardType"/>
+					<xs:element name="paging" type="pagingType"/>
+					<xs:element name="styles" maxOccurs="1" minOccurs="0" type="stylesType"/>
+	
+					<xs:element name="meta" maxOccurs="unbounded" minOccurs="0" type="metaType"/>
+					<xs:element name="link" maxOccurs="unbounded" minOccurs="0" type="linkHeaderType"/>
+					<xs:element name="external" maxOccurs="unbounded" minOccurs="0" type="externalType"/>
+					<xs:element name="css" maxOccurs="unbounded" minOccurs="0" type="xs:string"/>
+					<xs:element name="CSS" maxOccurs="unbounded" minOccurs="0" type="xs:string"/>
+					<xs:element name="script" maxOccurs="unbounded" minOccurs="0" type="scriptType"/>
+					<xs:element name="class" maxOccurs="unbounded" minOccurs="0" type="classesType"/>
+					<xs:element name="container" maxOccurs="unbounded" type="containerType"/>
+					<xs:element name="layout" maxOccurs="unbounded" type="layoutType"/>
+			</xs:choice>
+
+			<xs:attribute name="title" type="xs:string"/>
+			<xs:attribute name="baseurl" type="xs:string"/>
+			<xs:attribute name="paging" type="xs:boolean"/>
+			<xs:attribute name="output-encoding" type="xs:string"/>
+			<xs:attribute name="nocache" type="xs:boolean"/>
+			<xs:attribute name="styles" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+<xs:complexType name="containerType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Biscuit container</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="containerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element name="event" type="scriptingEventType" minOccurs="0"/>
+			<xs:element name="forward" maxOccurs="1" minOccurs="0" type="forwardType"/>
+			<xs:choice maxOccurs="1">
+				<xs:element maxOccurs="2" name="column" type="columnType"/>
+				<xs:element maxOccurs="unbounded" name="container" type="containerType"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+		<xs:attribute name="test" type="xs:string"/>
+		<xs:attribute name="paging" type="xs:boolean"/>
+	</xs:complexType>
+<xs:complexType name="columnType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Biscuit column</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element name="event" type="scriptingEventType" minOccurs="0"/>
+			<xs:choice>
+				<!-- Biscuits -->
+				<xs:choice maxOccurs="unbounded" minOccurs="0">
+					<xs:element name="forward" maxOccurs="1" minOccurs="0" type="forwardType"/>
+					<xs:element name="FORWARD" maxOccurs="1" minOccurs="0" type="forwardType"/>
+					<xs:element name="ADBANNER" type="adbannerType"/>
+					<xs:element name="ANALYTICS" type="analyticsType"/>
+					<xs:element name="ARTICLE" type="articleType"/>
+					<xs:element name="BUTTONMENU" type="menuType"/>
+					<xs:element name="COMMENT" type="commentType"/>
+					<xs:element name="CONTENTLIST" type="contentlistType"/>
+					<xs:element name="FLASH" type="flashType"/>
+					<xs:element name="FORM" type="formType"/>
+					<xs:element name="GALLERY" type="galleryType"/>
+					<xs:element name="IMAGE" type="imageType"/>
+					<xs:element name="IMAGEHEADER" type="imageType"/>
+					<xs:element name="LIST" type="listType"/>
+					<xs:element name="NAVIGATION" type="navigationType"/>
+					<xs:element name="PAGEFOOTER" type="pagefooterType"/>
+					<xs:element name="PAGEHEADER" type="pageheaderType"/>
+					<xs:element name="PAGEHEADLINE" type="pageheadlineType"/>
+					<xs:element name="PIPEDMENU" type="menuType"/>
+					<xs:element name="SEPARATOR" type="separatorType"/>
+					<xs:element name="SHOWFILE" type="showfileType"/>
+					<xs:element name="TABBEDMENU" type="menuType"/>
+					<xs:element name="TABLE" type="tableType"/>
+					<xs:element name="TAGCLOUD" type="tagcloudType"/>
+					<xs:element name="TEASER" type="teaserType"/>
+					<xs:element name="TEXT" type="textBiscuitType"/>
+					<xs:element name="TOOLBAR" type="toolbarType"/>
+					<xs:element name="MAP" type="mapType"/>
+					<xs:element name="LOCATION" type="locationType"/>
+					<xs:element name="POIVIEW" type="poiViewType"/>
+					<xs:element name="POILIST" type="poiViewType"/>
+					<xs:element name="POIITEM" type="poiViewType"/>
+					<xs:element name="RSSLIST" type="rssListType"/>
+					<xs:element name="RSSITEM" type="rssItemType"/>
+					<xs:element name="TICKER" type="tickerType"/>
+					<xs:element name="SCRIPT" type="scriptInlineType"/>
+					<xs:element name="MEDIA" type="showfileType"/>
+					<!-- for pager -->
+					<xs:element name="PAGEBEGINFOOTER" type="pagerBiscuitType"/>
+					<xs:element name="PAGEBREAK" type="pagerBiscuitType"/>
+					<xs:element name="PAGEENDHEADER" type="pagerBiscuitType"/>
+					<!-- group Biscuits -->
+	               			 <xs:element name="group" type="groupType"/>
+	               		</xs:choice>
+
+				<!-- container -->
+                			<xs:element maxOccurs="unbounded" name="container" type="containerType"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string"/>
+        <xs:attribute name="class" type="xs:string"/>
+		<xs:attribute default="false" name="optional" type="xs:boolean"/>
+		<xs:attribute name="widthpercent" type="xs:integer"/>
+		<xs:attribute name="minwidthpx" type="xs:integer"/>
+		<xs:attribute name="test" type="xs:string"/>
+		<xs:attribute name="paging" type="xs:boolean"/>
+	</xs:complexType>
+<xs:complexType name="groupType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">Biscuit group</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="styles" maxOccurs="1" minOccurs="0" type="stylesType"/>
+			<xs:element name="params" type="containerparamsType" minOccurs="0"/>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+                <xs:element name="forward" maxOccurs="1" minOccurs="0" type="forwardType"/>
+                <xs:element name="FORWARD" maxOccurs="1" minOccurs="0" type="forwardType"/>
+                <xs:element name="ADBANNER" type="adbannerType"/>
+                <xs:element name="ANALYTICS" type="analyticsType"/>
+                <xs:element name="ARTICLE" type="articleType"/>
+                <xs:element name="BUTTONMENU" type="menuType"/>
+                <xs:element name="COMMENT" type="commentType"/>
+                <xs:element name="CONTENTLIST" type="contentlistType"/>
+                <xs:element name="FLASH" type="flashType"/>
+                <xs:element name="FORM" type="formType"/>
+                <xs:element name="GALLERY" type="galleryType"/>
+                <xs:element name="IMAGE" type="imageType"/>
+                <xs:element name="IMAGEHEADER" type="imageType"/>
+                <xs:element name="LIST" type="listType"/>
+                <xs:element name="NAVIGATION" type="navigationType"/>
+                <xs:element name="PAGEFOOTER" type="pagefooterType"/>
+                <xs:element name="PAGEHEADER" type="pageheaderType"/>
+                <xs:element name="PAGEHEADLINE" type="pageheadlineType"/>
+                <xs:element name="PIPEDMENU" type="menuType"/>
+                <xs:element name="SEPARATOR" type="separatorType"/>
+                <xs:element name="SHOWFILE" type="showfileType"/>
+                <xs:element name="TABBEDMENU" type="menuType"/>
+                <xs:element name="TABLE" type="tableType"/>
+                <xs:element name="TAGCLOUD" type="tagcloudType"/>
+                <xs:element name="TEASER" type="teaserType"/>
+                <xs:element name="TEXT" type="textBiscuitType"/>
+                <xs:element name="TOOLBAR" type="toolbarType"/>
+                <xs:element name="MAP" type="mapType"/>
+                <xs:element name="LOCATION" type="locationType"/>
+                <xs:element name="POIVIEW" type="poiViewType"/>
+                <xs:element name="POILIST" type="poiViewType"/>
+                <xs:element name="POIITEM" type="poiViewType"/>
+                <xs:element name="RSSLIST" type="rssListType"/>
+                <xs:element name="RSSITEM" type="rssItemType"/>
+				<xs:element name="TICKER" type="tickerType"/>
+                <xs:element name="SCRIPT" type="scriptInlineType"/>
+				<xs:element name="MEDIA" type="showfileType"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string"/>
+        <xs:attribute name="class" type="xs:string"/>
+    </xs:complexType>
+<xs:complexType name="metaType">
+		<xs:attribute name="name" type="xs:string"/>
+        <xs:attribute name="property" type="xs:string"/>
+		<xs:attribute name="http-equiv" type="xs:string"/>
+		<xs:attribute name="content" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="linkHeaderType">
+		<xs:attribute name="href" type="xs:string"/>
+		<xs:attribute name="rel" type="xs:string"/>
+		<xs:attribute name="rev" type="xs:string"/>
+		<xs:attribute name="type" type="xs:string"/>
+		<xs:attribute name="title" type="xs:string"/>
+		<xs:attribute name="hreflang" type="xs:string"/>
+		<xs:attribute name="media" type="xs:string"/>
+		<xs:attribute name="id" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="externalType">
+		<xs:attribute name="type" type="xs:string"/>
+		<xs:attribute name="file" type="xs:string"/>
+		<xs:attribute name="family" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="avsType">
+		<xs:attribute name="value">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="avs16"/>
+					<xs:enumeration value="avs18"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="category" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="forwardType">
+		<xs:attribute name="url" type="xs:anyURI"/>
+		<xs:attribute name="timer" type="xs:integer"/>
+		<xs:attribute name="test" type="xs:string"/>
+		<xs:attribute name="tel" type="xs:string"/>
+		<xs:attribute name="method">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="refresh"/>
+					<xs:enumeration value="302"/>
+					<xs:enumeration value="303"/>
+					<xs:enumeration value="304"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="forced" type="xs:boolean"/>
+	</xs:complexType>
+<xs:complexType name="scriptType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="function" type="scriptingFunctionType"/>
+			<xs:element name="event" type="scriptingEventType"/>
+			<xs:element name="preserve" type="xs:string"/>
+		</xs:choice>
+	</xs:complexType>
+<xs:complexType name="scriptInlineType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="preserve" type="xs:string"/>
+			<xs:element name="noscript" type="xs:string"/>
+		</xs:choice>
+	</xs:complexType>
+<xs:attributeGroup name="biscuitAttribs">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+        <xs:attribute name="nbbiscuitidentifier" type="xs:string"/>
+		<xs:attribute name="paging" type="xs:boolean"/>
+		<xs:attribute name="borders" type="xs:string"/>
+		<xs:attribute name="styles" type="xs:string"/>
+		<xs:attribute name="forcedmode" type="xs:string"/>
+		<xs:attribute name="test" type="xs:string"/>
+	</xs:attributeGroup>
+<xs:attributeGroup name="biscuitAttribsIdRequired">
+		<xs:attribute name="id" type="xs:string" use="required"/>
+		<xs:attribute name="class" type="xs:string"/>
+        <xs:attribute name="nbbiscuitidentifier" type="xs:string"/>
+		<xs:attribute name="paging" type="xs:boolean"/>
+		<xs:attribute name="borders" type="xs:string"/>
+		<xs:attribute name="styles" type="xs:string"/>
+		<xs:attribute name="forcedmode" type="xs:string"/>
+		<xs:attribute name="test" type="xs:string"/>
+	</xs:attributeGroup>
+<xs:attributeGroup name="hrefAttribs">
+		<xs:attribute name="href" type="xs:anyURI"/>
+		<xs:attribute name="tel" type="xs:string"/>
+		<xs:attribute name="rel" type="xs:string"/>
+		<xs:attribute name="rev" type="xs:string"/>
+		<xs:attribute name="title" type="xs:string"/>
+		<xs:attribute name="accesskey" type="xs:string"/>
+	</xs:attributeGroup>
+<xs:complexType name="pagerBiscuitType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Pager directive</xs:documentation>
+		</xs:annotation>
+<!-- this is always empty -->
+	</xs:complexType>
+<xs:complexType name="commentType" mixed="true">
+    </xs:complexType>
+<xs:complexType name="adbannerType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Insert a mobile ad</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="adparams" type="adparamsType"/>
+			<xs:element minOccurs="0" name="imageset" type="imagesetType"/>
+			<xs:element minOccurs="0" name="richtext" type="textLinkedType"/>
+		</xs:all>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="analyticsType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Insert tracking</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="1" name="params" type="trackingParamsType"/>
+		</xs:all>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="articleType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Insert an Article with headline, an image and long text</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="headline" type="headlineType"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="img" type="imgType"/>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element minOccurs="0" name="richtext" type="textType"/>
+				<xs:element minOccurs="0" name="text" type="textType"/>
+			</xs:choice>
+			<xs:element minOccurs="0" name="link" type="textLinkedType"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="contentlistType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Browse your Netbiscuits Media Repository</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element name="trackingparams" minOccurs="0" type="trackingParamsType"/> 
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="folder">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Name of the folder if none is returned from the Repository.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType mixed="true">
+					<xs:attribute name="force" type="xs:boolean"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="medialist">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="trackingparams" minOccurs="0" type="trackingParamsType"/> 
+					</xs:all> 
+					<xs:attribute name="folder" type="xs:positiveInteger">
+						<xs:annotation>
+							<xs:documentation xml:lang="en">Folder ID in the Netbiscuits Media repository</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="errormsg" type="xs:string">
+						<xs:annotation>
+							<xs:documentation xml:lang="en">Message to display in case of error</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="rel" type="xs:string"/>
+					<xs:attribute name="rev" type="xs:string"/>
+					<xs:attribute name="title" type="xs:string"/>
+					<xs:attribute name="checksuitable" type="xs:boolean"/>
+					<xs:attribute name="notsuitablemsg" type="xs:string"/>
+<!-- 				<xs:attribute name="trackingprovider" type="xs:string"/> -->
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="align">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="right"/>
+					<xs:enumeration value="left"/>
+					<xs:enumeration value="column-right"/>
+					<xs:enumeration value="column-left"/>
+					<xs:enumeration value="bottom"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="target" type="xs:anyURI">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">The page that contains the SHOWFILE biscuit to present your media item</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="foldertarget" type="xs:anyURI">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">The page that contains the CONTENTLIST biscuit to present your media subfolders (may be the same page as the current one)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="showteaser" type="xs:boolean"/>
+		<xs:attribute name="showimage" type="xs:boolean"/>
+		<xs:attribute name="showparent" type="xs:boolean"/>
+		<xs:attribute name="showfiles" type="xs:boolean"/>
+		<xs:attribute name="showfolders" type="xs:boolean"/>
+		<xs:attribute name="imagewidth" type="xs:string"/>
+		<xs:attribute name="separator">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">(hr | none)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="none"/>
+					<xs:enumeration value="hr"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="flashType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Display a Flash movie</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="headline" type="headlineType"/>
+			<xs:element name="flashset">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded" name="flash">
+							<xs:complexType>
+								<xs:attribute name="src" type="xs:string"/>
+								<xs:attribute name="minversion" type="xs:string"/>
+								<xs:attribute name="minwidth" type="xs:integer"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="height" type="xs:string"/>
+					<xs:attribute name="width" type="xs:string"/>
+					<xs:attribute name="name" type="xs:string"/>
+					<xs:attribute name="objectsetid" type="xs:string"/>
+					<xs:attribute name="allowFullScreen" type="xs:boolean"/>
+					<xs:attribute name="fullscreenOnSelection" type="xs:boolean"/>
+					<xs:attribute name="allowScriptAccess" type="xs:string"/>
+					<xs:attribute name="swfLiveConnect" type="xs:boolean"/>
+					<xs:attribute name="scale" type="xs:string"/>
+					<xs:attribute name="menu" type="xs:boolean"/>
+					<xs:attribute name="quality" type="xs:string"/>
+					<xs:attribute name="align" type="xs:string"/>
+					<xs:attribute name="pluginspage" type="xs:anyURI"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="noflash">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">alternative display of image and text</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice maxOccurs="unbounded">
+						<xs:element name="img" type="imgType"/>
+						<xs:element name="richtext" type="textType"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="formType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Collect user input</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="headline" type="headlineType"/>
+			<xs:element minOccurs="0" name="formdatawebserviceparams" type="formdatawsparamsType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+			<xs:element minOccurs="0" name="messagingparams">
+				<xs:complexType>
+					<xs:sequence maxOccurs="1" minOccurs="1">
+						<xs:element name="linkup" type="xs:string"/>
+						<xs:element name="objectid" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element maxOccurs="unbounded" minOccurs="0" name="error" type="errorFormType"/>
+				<xs:element name="input" type="inputType"/>
+				<xs:element name="captcha" type="captchaType"/>
+				<xs:element name="rating" type="ratingType"/>
+				<xs:element name="img" type="imgSimpleType"/>
+				<xs:element name="text" type="textFormType"/>
+				<xs:element name="richtext" type="textFormType"/>
+				<xs:element name="spacer">
+					<xs:annotation>
+						<xs:documentation xml:lang="en">use this to force creation of new table between two row-elements (for horizontal spacing of elements)</xs:documentation>
+					</xs:annotation>
+					<xs:complexType/>
+				</xs:element>
+				<xs:element maxOccurs="unbounded" name="row">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="cell" type="cellFormType"/>
+						</xs:choice>
+						<xs:attribute name="id" type="xs:string"/>
+						<xs:attribute name="class" type="xs:string"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element minOccurs="0" maxOccurs="1" name="locationformlink" type="textType"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="action" type="xs:anyURI"/>
+		<xs:attribute name="overwrite" type="xs:boolean"/>
+		<xs:attribute default="GET" name="method">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="POST"/>
+					<xs:enumeration value="post"/>
+					<xs:enumeration value="GET"/>
+					<xs:enumeration value="get"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="suppressencodingparam" type="xs:boolean"/>
+		<xs:attribute name="excludeforeignparams" type="xs:boolean"/>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="galleryType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">View a gallery of items</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element name="styles" maxOccurs="1" minOccurs="0" type="stylesType"/>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element minOccurs="0" name="controls" type="galleryControlsType"/>
+				<xs:element minOccurs="0" name="view" type="galleryViewType"/>
+				<xs:element minOccurs="0" name="headline" type="headlineType"/>
+				<xs:element minOccurs="0" name="items" type="galleryItemsType"/>
+				<xs:element minOccurs="0" name="indicator" type="galleryIndicatorType"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attributeGroup ref="biscuitAttribsIdRequired"/>
+	</xs:complexType>
+<xs:complexType name="galleryControlsType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">A collection of controls for the gallery</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="0" maxOccurs="unbounded" name="control" type="galleryControlType"/>
+		</xs:sequence>
+	</xs:complexType>
+<xs:complexType name="galleryControlType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">A control for the gallery</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="value" type="xs:string" use="required"/>
+	</xs:complexType>
+<xs:complexType name="galleryViewType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">A placeholder for content that will be loaded</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="position" type="xs:string" use="optional"/>		
+	</xs:complexType>
+<xs:complexType name="galleryItemsType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">A collection of items for the gallery</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="0" maxOccurs="unbounded" name="item" type="galleryItemType"/>
+		</xs:sequence>
+	</xs:complexType>
+<xs:complexType name="galleryItemType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">One item in the gallery</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element minOccurs="0" name="img" type="galleryImageType"/>
+				<xs:element minOccurs="0" name="richtext" type="galleryTextType"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required"/>
+		<xs:attribute name="class" type="xs:string" use="optional"/>
+		<xs:attribute name="href" type="xs:string" use="optional"/>
+		<xs:attribute name="loadid" type="xs:string" use="optional"/>
+		<xs:attribute name="togglesrc" type="xs:string" use="optional"/>
+	</xs:complexType>
+<xs:complexType name="galleryIndicatorType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">One item in the gallery</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="empty" type="xs:string" use="required"/>
+		<xs:attribute name="full" type="xs:string" use="required"/>
+	</xs:complexType>
+<xs:complexType mixed="true" name="galleryTextType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">One richtext in a gallery item</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="id" type="xs:string" use="optional"/>
+		<xs:attribute name="class" type="xs:string" use="optional"/>
+		<xs:attribute name="position" type="xs:string" use="optional"/>
+		<xs:attribute name="width" type="xs:string" use="optional"/>
+	</xs:complexType>
+<xs:complexType name="galleryImageType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">One image in a gallery item</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="src" type="xs:string" use="required"/>
+		<xs:attribute name="class" type="xs:string" use="optional"/>
+		<xs:attribute name="format" type="xs:string"/>
+		<xs:attribute name="profile" type="xs:string"/>
+		<xs:attribute name="quality" type="xs:integer"/>
+		<xs:attribute name="convert" type="xs:boolean"/>
+		<xs:attribute name="suppressdimensions" type="xs:boolean"/>
+		<xs:attribute name="fsize" type="xs:string"/>
+		<xs:attribute name="fillcolor" type="xs:string"/>
+		<xs:attribute name="boxing" type="xs:string"/>
+		<xs:attribute name="height" type="xs:string"/>
+		<xs:attribute name="width" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="tickerType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">View a scrolling text</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+			<xs:element minOccurs="0" name="settings" type="tickerSettingsType"/>
+			<xs:element minOccurs="0" name="itemseparator" type="xs:string"/>
+			<xs:element minOccurs="1" name="items">
+				<xs:complexType>
+					<xs:sequence minOccurs="1" maxOccurs="unbounded">
+						<xs:element name="item" type="textLinkedType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attributeGroup ref="biscuitAttribsIdRequired"/>
+		<xs:attributeGroup ref="hrefAttribs"/>
+	</xs:complexType>
+<xs:complexType name="tickerSettingsType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">settings for the ticker biscuit</xs:documentation>
+		</xs:annotation>
+		<xs:choice maxOccurs="unbounded">
+			<xs:element minOccurs="0" name="visiblestaticitems" type="xs:string"/>
+			<xs:element minOccurs="0" name="repetition" type="xs:string"/>
+			<xs:element minOccurs="0" name="speed" type="xs:string"/>
+			<xs:element minOccurs="0" name="direction" type="xs:string"/>
+			<xs:element minOccurs="0" name="increment" type="xs:string"/>
+		</xs:choice>
+	</xs:complexType>
+<xs:complexType name="imageType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Insert an Image</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+			<xs:choice>
+				<xs:element name="imageset" type="imagesetType"/>
+				<xs:element name="img" type="imgType"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+		<xs:attribute name="fillcolor" type="xs:string"/>
+		<xs:attribute name="boxing" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="listType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">A list of items, links, etc.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="headline" type="headlineType"/>
+			<xs:choice>
+				<xs:element name="items" type="listItemsType"/>
+				<xs:element name="ulist" type="listItemsType"/>
+				<xs:element name="olist" type="listItemsType"/>
+			</xs:choice>
+			<xs:element maxOccurs="1" minOccurs="0" name="footertext" type="textLinkedType"/>
+		</xs:sequence>
+		<xs:attribute name="cols" type="xs:positiveInteger"/>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="menuType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Create a menu bar</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+			<xs:element maxOccurs="1" minOccurs="1" name="items">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="item">
+							<xs:complexType>
+								<xs:all>
+									<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+									<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+									<xs:element minOccurs="0" name="img" type="imgIconType"/>
+									<xs:element minOccurs="0" name="link" type="textLinkedType"/>
+								</xs:all>
+								<xs:attribute name="id" type="xs:string"/>
+								<xs:attribute name="class" type="xs:string"/>
+								<xs:attribute name="active" type="xs:boolean"/>
+								<xs:attribute name="bgimage" type="xs:string"/> <!-- buttonmenu only -->
+								<xs:attribute name="bgrepeat" type="xs:string"/> <!-- buttonmenu only -->
+								<xs:attribute name="bgposition" type="xs:string"/> <!-- buttonmenu only -->
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="gap" type="xs:string"/> <!-- buttonmenu only -->
+		<xs:attribute name="stretch" type="xs:boolean"/> <!-- pipedmenu only -->
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="navigationType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">a manually inserted navigation element</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="first" type="itemNavType"/>
+			<xs:element minOccurs="0" name="prev" type="itemNavType"/>
+			<xs:element minOccurs="0" name="text" type="textType"/>
+			<xs:element minOccurs="0" name="next" type="itemNavType"/>
+			<xs:element minOccurs="0" name="last" type="itemNavType"/>
+		</xs:all>
+		<xs:attribute name="separator" type="xs:string"/>
+		<xs:attribute name="type">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="static"/>
+					<xs:enumeration value="dynamic"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="pagefooterType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">a structured page fooder (includes pager direcitve)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+			<xs:choice>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element name="text" type="textLinkedType"/>
+					<xs:element name="richtext" type="textLinkedType"/>
+				</xs:choice>
+				<xs:element maxOccurs="5" name="item">
+					<xs:complexType>
+						<xs:all>
+							<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+							<xs:element minOccurs="0" name="text" type="textType"/>
+							<xs:element minOccurs="0" name="richtext" type="textType"/>
+							<xs:element minOccurs="0" name="link" type="linkType"/>
+							<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+						</xs:all>
+						<xs:attribute name="position" use="required">
+							<xs:simpleType>
+								<xs:restriction base="xs:positiveInteger">
+									<xs:maxInclusive value="5"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="pageheaderType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">a structured header for your page (includes pager directive)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="img" type="imgHeaderType"/>
+				<xs:element name="link" type="textLinkedType"/>
+<!-- for future use	
+				<xs:element name="icon" type="imgLinkedIconType"/> 
+				-->
+			</xs:choice>
+		</xs:sequence>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="pageheadlineType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">a structured header for your page (includes pager directive)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="headline" type="headlineType"/>
+				<xs:element name="icon" type="imgLinkedIconType"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="separatorType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">A spacer between biscuits</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:choice minOccurs="0">
+				<xs:element name="imageset" type="imagesetSimpleType"/>
+				<xs:element name="img" type="imgType"/>
+				<xs:element name="hr">
+					<xs:complexType/>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="showfileType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Present a media item from your Media Repository for Download</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element name="trackingparams" minOccurs="0" type="trackingParamsType"/> 
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="headline" type="headlineType"/>
+			<xs:element minOccurs="0" name="richtext" type="textType"/>
+			<xs:element name="settings" minOccurs="0">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="showteaser" minOccurs="0" type="xs:boolean"/> 
+						<xs:element name="showimage" minOccurs="0" type="xs:boolean"/> 
+						<xs:element name="showstream" minOccurs="0" type="xs:boolean"/> 
+						<xs:element name="showdownload" minOccurs="0" type="xs:boolean"/> 
+						<xs:element name="showtitle" minOccurs="0" type="xs:boolean"/> 
+						<xs:element name="redirect" minOccurs="0" type="xs:string"/> 
+						<xs:element name="embed" minOccurs="0" type="xs:boolean"/> 
+						<xs:element name="convertimage" minOccurs="0" type="xs:boolean"/> 
+						<xs:element name="width" minOccurs="0" type="xs:string"/> 
+						<xs:element name="usedefaultcontrols" minOccurs="0" type="xs:boolean"/> 
+						<xs:element name="autoplay" minOccurs="0" type="xs:boolean"/> 
+						<xs:element name="autobuffer" minOccurs="0" type="xs:boolean"/> 
+						<xs:element name="showlinklist" minOccurs="0" type="xs:boolean"/> 
+						<xs:element name="poster">
+							<xs:complexType>
+								<xs:attribute name="src" type="xs:string"/>
+								<xs:attribute name="text" type="xs:string"/>
+							</xs:complexType>
+						</xs:element>
+						<!--  not yet: showqualitylist, defaultprofile --> 
+					</xs:all> 
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="links" minOccurs="0">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="link" minOccurs="0">
+							<xs:complexType>
+								<xs:attribute name="text" type="xs:string"/>
+							</xs:complexType>
+						</xs:element>
+						<!--  not yet: showqualitylist, defaultprofile --> 
+					</xs:all> 
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="mediaitem">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="trackingparams" minOccurs="0" maxOccurs="1" type="trackingParamsType"/> 
+						<xs:element name="file" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:attribute name="src" type="xs:string"/>
+								<xs:attribute name="teaser" type="xs:string"/>
+								<xs:attribute name="mimetype" type="xs:string"/>
+								<xs:attribute name="duration" type="xs:string"/>
+								<xs:attribute name="label" type="xs:string"/>
+							</xs:complexType>
+						</xs:element> 
+					</xs:sequence> 
+					<xs:attribute name="id" type="xs:string">
+						<xs:annotation>
+							<xs:documentation xml:lang="en">Media ID in the Netbiscuits Media repository. Keep empty if you want to pass the id via the URL</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="errormsg" type="xs:string">
+						<xs:annotation>
+							<xs:documentation xml:lang="en">Message to display in case of error</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="rel" type="xs:string"/>
+					<xs:attribute name="rev" type="xs:string"/>
+<!--					<xs:attribute name="trackingprovider" type="xs:string"/>  -->
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="errors">
+				<xs:complexType>
+					<xs:choice maxOccurs="unbounded">
+						<xs:element name="error" type="errorPoiType"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="showteaser" type="xs:boolean"/>
+		<xs:attribute name="showimage" type="xs:boolean"/>
+		<xs:attribute name="showstream" type="xs:boolean"/>
+		<xs:attribute name="showdownload" type="xs:boolean"/>
+		<xs:attribute name="showtitle" type="xs:boolean"/>
+		<xs:attribute name="redirect" type="xs:boolean"/>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="tableType">
+		<xs:annotation>
+			<xs:documentation>Structured input in table form</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+			<xs:element minOccurs="0" name="headline" type="headlineType"/>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element maxOccurs="unbounded" name="row">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+							<xs:element name="cell" type="cellTableType" maxOccurs="unbounded"/>
+						</xs:sequence>
+						<xs:attribute name="id" type="xs:string"/>
+						<xs:attribute name="class" type="xs:string"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:element minOccurs="0" name="footertext" type="textLinkedType"/>
+		</xs:sequence>
+		<xs:attribute name="separator" type="xs:string"/>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="tagcloudType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Prioritized tags with links</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+			<xs:element minOccurs="0" name="headline" type="headlineType"/>
+			<xs:element name="tags" minOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="tag">
+							<xs:complexType mixed="true">
+								<xs:attribute name="priority" use="required">
+									<xs:simpleType>
+										<xs:restriction base="xs:positiveInteger">
+											<xs:maxInclusive value="4"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+								<xs:attribute name="id" type="xs:string"/>
+								<xs:attribute name="class" type="xs:string"/>
+								<xs:attributeGroup ref="hrefAttribs"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="teaserType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Image and short text</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+			<xs:element minOccurs="0" name="headline" type="headlineType"/>
+			<xs:element minOccurs="0" name="img" type="imgZoomableType"/>
+			<xs:choice minOccurs="0">
+				<xs:element name="text" type="textTeaserType"/>
+				<xs:element name="richtext" type="textTeaserType"/>
+			</xs:choice>
+			<xs:element minOccurs="0" name="link" type="textLinkedType"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="hrefAttribs"/>
+		<xs:attribute name="upimg" type="xs:anyURI"/>
+		<xs:attribute name="downimg" type="xs:anyURI"/>
+		<xs:attribute name="behavior" type="xs:string"/>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType mixed="true" name="textBiscuitType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Insert a text passage of any length</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="headline" type="headlineType"/>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element minOccurs="0" name="richtext" type="textType"/>
+				<xs:element minOccurs="0" name="text" type="textType"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="toolbarType">
+		<xs:annotation>
+			<xs:documentation>Create an icon bar with optional javascript horizontal scrolling</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="prev" type="itemNavType"/>
+			<xs:element minOccurs="0" name="next" type="itemNavType"/>
+			<xs:element maxOccurs="1" minOccurs="1" name="items">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="item">
+							<xs:complexType>
+								<xs:all>
+									<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+									<xs:element name="active-icon" type="imgIconType"/>
+									<xs:element name="inactive-icon" type="imgIconType"/>
+									<xs:element name="link" type="textLinkedType"/>
+								</xs:all>
+								<xs:attribute name="active" type="xs:boolean"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="visible" type="xs:positiveInteger"/>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+	</xs:complexType>
+<xs:complexType name="locationType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Insert autolocation features</xs:documentation>
+		</xs:annotation>
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+			<xs:element minOccurs="1" maxOccurs="1" name="geocoding" type="mapparamsType"/>
+			<xs:element name="errors">
+				<xs:complexType>
+					<xs:choice maxOccurs="unbounded">
+						<xs:element name="error" type="errorPoiType"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" maxOccurs="1" name="autolocate">
+				<xs:complexType>
+					<xs:choice maxOccurs="unbounded">
+						<xs:element minOccurs="0" name="headline" type="headlineType"/>
+						<xs:element minOccurs="0" name="text" type="textType"/>
+						<xs:element minOccurs="0" name="locationformlink" type="textType"/>
+					</xs:choice>
+					<xs:attribute name="method" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="1" maxOccurs="1" name="locationform" type="formType"/>
+			<xs:element minOccurs="0" maxOccurs="1" name="disambiguation">
+				<xs:complexType>
+					<xs:choice maxOccurs="unbounded">
+						<xs:element minOccurs="0" name="headline" type="headlineType"/>
+						<xs:element minOccurs="0" name="disambiguationtext" type="textType"/>
+						<xs:element minOccurs="0" name="locationformlink" type="textType"/>
+					</xs:choice>
+					<xs:attribute name="maxitems" type="xs:positiveInteger"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+		<xs:attribute name="target" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="mapType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Insert a map image</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+			<xs:element minOccurs="1" name="mapparams" type="mapparamsType"/>
+			<xs:element minOccurs="0" maxOccurs="1" name="apiparams" type="mapparamsType"/>
+			<xs:element minOccurs="0" name="mapnavigation" type="mapnavigationType"/>
+		</xs:all>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+		<xs:attribute name="mapmode" type="xs:string"/>
+		<xs:attribute name="target" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="poiViewType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Insert a poi locator</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="styles" type="stylesType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+			<xs:element minOccurs="0" name="headline" type="headlineType"/>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element minOccurs="0" maxOccurs="1" name="apiparams" type="mapparamsType"/>
+				<xs:element minOccurs="0" maxOccurs="1" name="mapparams" type="mapparamsType"/>
+				<xs:element minOccurs="0" maxOccurs="1" name="poilisting" type="poiListingType"/>
+				<xs:element minOccurs="0" maxOccurs="1" name="poidetail" type="poiDetailType"/>
+				<xs:element minOccurs="0" maxOccurs="1" name="currentlocation" type="textType"/>
+				<xs:element minOccurs="0" maxOccurs="1" name="poilistlink">
+					<xs:complexType mixed="true">
+						<xs:attribute name="target" type="xs:string"/>
+					</xs:complexType>
+				</xs:element> 
+				<xs:element minOccurs="0" maxOccurs="1" name="changelocationlink">
+					<xs:complexType mixed="true">
+						<xs:attribute name="target" type="xs:string"/>
+					</xs:complexType>
+				</xs:element> 
+				<xs:element minOccurs="0" maxOccurs="1" name="errors">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="error" type="errorPoiType"/>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+		<xs:attribute name="mapoverview" type="xs:boolean"/>
+		<xs:attribute name="mapdetail" type="xs:boolean"/>
+		<xs:attribute name="number" type="xs:boolean"/>
+		<xs:attribute name="markertype">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="alpha"/>
+					<xs:enumeration value="numeric"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="detailpage" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="rssListType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Insert an rss feed</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="mapping" type="rssMappingType"/>
+			<xs:element minOccurs="0" name="params" type="rssParamsType"/>
+			<xs:choice maxOccurs="1" minOccurs="0">
+				<xs:element name="errors">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="error" type="errorPoiType"/>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+<!-- 			<xs:element maxOccurs="unbounded" minOccurs="0" name="error" type="errorPoiType"/> -->
+			</xs:choice>
+		</xs:sequence>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+		<xs:attribute name="url" type="xs:string" use="required"/>
+		<xs:attribute name="detailpage" type="xs:string"/>
+		<xs:attribute name="items" type="xs:integer"/>
+		<xs:attribute name="externalitempage" type="xs:boolean"/>
+		<xs:attribute name="refresh" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="rssItemType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Insert an rss feed</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="feedmanagerparams" type="containerparamsType" minOccurs="0"/>
+			<xs:element minOccurs="0" name="mapping" type="rssMappingType"/>
+			<xs:element minOccurs="0" name="params" type="rssParamsType"/>
+			<xs:choice maxOccurs="1" minOccurs="0">
+				<xs:element name="errors">
+					<xs:complexType>
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="error" type="errorPoiType"/>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+<!--				<xs:element maxOccurs="unbounded" minOccurs="0" name="error" type="errorPoiType"/> -->
+			</xs:choice>
+		</xs:sequence>
+		<xs:attributeGroup ref="biscuitAttribs"/>
+		<xs:attribute name="url" type="xs:string" use="required"/>
+		<xs:attribute name="listpage" type="xs:string"/>
+		<xs:attribute name="refresh" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="containerparamsType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Insert params for feedmobilizer</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" name="param">
+				<xs:complexType>
+					<xs:attribute name="name" use="required" type="xs:string"/>
+					<xs:attribute name="value" use="required" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="type" use="optional" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="adparamsType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" name="param">
+				<xs:complexType>
+					<xs:attribute name="name" use="required">
+						<xs:annotation>
+							<xs:documentation xml:lang="en">Refer to the AdBanner online reference for details. http://www.netbiscuits.com/biscuitmlreference</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+   								<!-- netbiscuits -->
+								<xs:enumeration value="cust-id"/>
+								<xs:enumeration value="app-id"/>
+								<xs:enumeration value="campaign-id"/>
+								<!-- googleadsense -->
+								<xs:enumeration value="client"/>
+								<xs:enumeration value="channel"/>
+								<xs:enumeration value="format"/>
+								<xs:enumeration value="adtype"/>
+								<xs:enumeration value="usereferrer"/>
+								<!-- admob -->
+								<xs:enumeration value="siteid"/>
+								<xs:enumeration value="keywords"/>
+								<xs:enumeration value="postal"/>
+								<xs:enumeration value="gender"/>
+								<xs:enumeration value="birthday"/>
+								<!-- buzzcity -->
+								<xs:enumeration value="adType"/>
+								<xs:enumeration value="partnerid"/>
+								<!-- millennialmedia -->
+								<xs:enumeration value="apid"/>
+								<!-- nokia -->
+								<xs:enumeration value="spotname"/>
+								<!-- buongiorno -->
+								<xs:enumeration value="retmode"/>
+								<xs:enumeration value="country"/>
+								<xs:enumeration value="ruleid"/>
+								<xs:enumeration value="userid"/>
+								<xs:enumeration value="zoneid"/>
+								<xs:enumeration value="length"/>
+								<xs:enumeration value="cmpno"/>
+								<xs:enumeration value="templateid"/>
+								<xs:enumeration value="options"/>
+								<!-- tsm -->
+								<xs:enumeration value="contid"/>
+								<xs:enumeration value="adspacename"/>
+								<xs:enumeration value="pubid"/>
+								<xs:enumeration value="format"/>
+								<xs:enumeration value="sz"/>
+								<xs:enumeration value="userid"/>
+								<xs:enumeration value="zip"/>
+								<xs:enumeration value="age"/>
+								<xs:enumeration value="dob"/>
+								<xs:enumeration value="dma"/>
+								<xs:enumeration value="gender"/>
+								<xs:enumeration value="hhincome"/>
+								<xs:enumeration value="keyword"/>
+								<xs:enumeration value="tsmsz"/>
+								<!-- ringleader -->
+								<xs:enumeration value="form-id"/>
+								<xs:enumeration value="form-name"/>
+								<xs:enumeration value="script-url"/>
+								<xs:enumeration value="click-url"/>
+								<xs:enumeration value="image-src"/>
+								<xs:enumeration value="tagtype"/>
+								<!-- madvertise -->
+								<xs:enumeration value="sitecode"/>
+								<!-- mads -->
+								<xs:enumeration value="type"/>
+								<!-- admarvel (delta) -->
+								<xs:enumeration value="ondeck"/>
+								<xs:enumeration value="targetparams"/>
+<!--	Duplicate: see buongiorno	<xs:enumeration value="zoneid"/> -->
+								<xs:enumeration value="secret"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+					<xs:attribute name="value" type="xs:string" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="provider" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">Supported: netbiscuits, googleadsense, admob, buzzcity, millennialmedia</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="netbiscuits"/>
+					<xs:enumeration value="googleadsense"/>
+					<xs:enumeration value="admob"/>
+					<xs:enumeration value="buzzcity"/>
+					<xs:enumeration value="millennialmedia"/>
+					<xs:enumeration value="nokia"/>
+					<xs:enumeration value="buongiorno"/>
+					<xs:enumeration value="tsm"/>
+					<xs:enumeration value="thirdscreenmedia"/>
+					<xs:enumeration value="ringleader"/>
+					<xs:enumeration value="madvertise"/>
+					<xs:enumeration value="mads"/>
+					<xs:enumeration value="admarvel"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+<xs:complexType name="trackingParamsType">
+		<xs:sequence>
+			<xs:element name="param" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:attribute name="name" use="required">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="trackingsrc"/>
+								<xs:enumeration value="tracking-config"/>
+								<xs:enumeration value="analyticsid"/>
+                                <xs:enumeration value="publisherid"/>
+                                <xs:enumeration value="fixedwidth"/>
+                                <xs:enumeration value="fixedheight"/>
+								<xs:enumeration value="event"/>
+								<xs:enumeration value="title"/>
+								<xs:enumeration value="section"/>
+								<xs:enumeration value="subsection"/>
+							</xs:restriction>
+						</xs:simpleType> 
+					</xs:attribute>
+					<xs:attribute name="value" type="xs:string" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="provider" use="required" type="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">Supported: custom, admob, omniture coming soon</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+<xs:attributeGroup name="cellAttribs">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+		<xs:attribute name="optional" type="xs:boolean"/>
+		<xs:attribute name="align" type="xs:string"/>
+		<xs:attribute name="text-align" type="xs:string"/>
+		<xs:attribute name="borders" type="xs:string"/>
+		<xs:attribute name="width" type="xs:string"/>
+		<xs:attribute name="bgcolor" type="xs:string"/>
+		<xs:attribute name="bgimage" type="xs:string"/>
+		<xs:attribute name="bgrepeat" type="xs:string"/>
+		<xs:attribute name="bgposition" type="xs:string"/>
+	</xs:attributeGroup>
+<xs:complexType mixed="true" name="cellFormType">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:choice maxOccurs="unbounded" minOccurs="0">
+				<xs:element name="input" type="inputType"/>
+				<xs:element name="captcha" type="captchaType"/>
+				<xs:element name="img" type="imgSimpleType"/>
+				<xs:element name="text" type="textType"/>
+				<xs:element name="richtext" type="textType"/>
+				<xs:element maxOccurs="unbounded" minOccurs="0" name="error" type="errorFormType"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attributeGroup ref="cellAttribs"/>
+	</xs:complexType>
+<xs:complexType mixed="true" name="cellTableType">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:choice maxOccurs="unbounded" minOccurs="0">
+				<xs:element name="img" type="imgType"/>
+				<xs:element name="richtext" type="textTableType"/>
+				<xs:element name="text" type="textTableType"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attributeGroup ref="cellAttribs"/>
+		<xs:attribute name="anchor" type="xs:string"/>
+		<xs:attributeGroup ref="hrefAttribs"/>
+	</xs:complexType>
+<xs:complexType mixed="true" name="headlineType">
+		<xs:all>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+		</xs:all>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+		<xs:attribute name="anchor" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="imagesetSimpleType">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="img" type="imgSetSimpleType"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+		<xs:attribute name="fillcolor" type="xs:string"/>
+		<xs:attribute name="boxing" type="xs:string"/>
+		<xs:attribute name="imagesetid" type="xs:positiveInteger"/>
+	</xs:complexType>
+<xs:complexType name="imagesetType">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="img" type="imgSetType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+		</xs:sequence>
+		<xs:attribute name="select">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="best-fit"/>
+					<xs:enumeration value="next-larger"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="id" type="xs:string"/>
+        <xs:attribute name="convert" type="xs:boolean"/>
+		<xs:attribute name="class" type="xs:string"/>
+		<xs:attribute name="fillcolor" type="xs:string"/>
+		<xs:attribute name="boxing" type="xs:string"/>
+		<xs:attribute name="imagesetid" type="xs:positiveInteger"/>
+		<xs:attribute name="adbannerid" type="xs:positiveInteger"/>
+		<xs:attribute name="alt" type="xs:string"/>
+		<xs:attributeGroup ref="hrefAttribs"/>
+	</xs:complexType>
+<xs:complexType name="imgSetSimpleType">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+        <xs:attribute name="convert" type="xs:boolean"/>
+		<xs:attribute name="fillcolor" type="xs:string"/>
+		<xs:attribute name="boxing" type="xs:string"/>
+		<xs:attribute name="src" type="xs:anyURI" use="required"/>
+		<xs:attribute name="width" type="xs:string" use="required"/>
+	</xs:complexType>
+<xs:complexType name="imgSetType">
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+        <xs:attribute name="convert" type="xs:boolean"/>
+		<xs:attribute name="profile" type="xs:string"/>
+		<xs:attribute name="quality" type="xs:string"/>
+		<xs:attribute name="fillcolor" type="xs:string"/>
+		<xs:attribute name="boxing" type="xs:string"/>
+		<xs:attribute name="src" type="xs:string" use="required"/>
+		<xs:attribute name="alt" type="xs:string"/>
+		<xs:attribute name="width" type="xs:string" use="required"/>
+		<xs:attributeGroup ref="hrefAttribs"/>
+	</xs:complexType>
+<xs:complexType name="imgIconType">
+		<xs:all>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+		</xs:all>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+        <xs:attribute name="convert" type="xs:boolean"/>
+		<xs:attribute name="suppressdimensions" type="xs:boolean"/>
+		<xs:attribute name="profile" type="xs:string"/>
+		<xs:attribute name="quality" type="xs:string"/>
+		<xs:attribute name="src" type="xs:anyURI"/>
+		<xs:attribute name="altsrc" type="xs:anyURI"/>
+		<xs:attribute name="alt" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="imgLinkedIconType">
+		<xs:all>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+		</xs:all>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+        <xs:attribute name="convert" type="xs:boolean"/>
+		<xs:attribute name="suppressdimensions" type="xs:boolean"/>
+		<xs:attribute name="profile" type="xs:string"/>
+		<xs:attribute name="quality" type="xs:string"/>
+		<xs:attribute name="src" type="xs:anyURI"/>
+		<xs:attribute name="altsrc" type="xs:anyURI"/>
+		<xs:attribute name="alt" type="xs:string"/>
+		<xs:attributeGroup ref="hrefAttribs"/>
+	</xs:complexType>
+<xs:complexType name="imgSimpleType">
+		<xs:all>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+		</xs:all>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+        <xs:attribute name="convert" type="xs:boolean"/>
+		<xs:attribute name="suppressdimensions" type="xs:boolean"/>
+		<xs:attribute name="fillcolor" type="xs:string"/>
+		<xs:attribute name="boxing" type="xs:string"/>
+		<xs:attribute name="src" type="xs:anyURI"/>
+		<xs:attribute name="altsrc" type="xs:anyURI"/>
+		<xs:attribute name="alt" type="xs:string"/>
+		<xs:attribute name="format" type="xs:string"/>
+		<xs:attribute name="profile" type="xs:string"/>
+		<xs:attribute name="quality" type="xs:integer"/>
+		<xs:attribute name="fsize" type="xs:string"/>
+		<xs:attribute name="height" type="xs:string"/>
+		<xs:attribute name="width" type="xs:string"/>
+		<xs:attribute name="origwidth" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="imgType">
+		<xs:all>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+		</xs:all>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+        <xs:attribute name="convert" type="xs:boolean"/>
+		<xs:attribute name="suppressdimensions" type="xs:boolean"/>
+		<xs:attribute name="src" type="xs:anyURI"/>
+		<xs:attribute name="altsrc" type="xs:anyURI"/>
+		<xs:attribute name="alt" type="xs:string"/>
+		<xs:attribute name="format" type="xs:string"/>
+		<xs:attribute name="profile" type="xs:string"/>
+		<xs:attribute name="quality" type="xs:integer"/>
+		<xs:attribute name="fsize" type="xs:string"/>
+		<xs:attribute name="fillcolor" type="xs:string"/>
+		<xs:attribute name="boxing" type="xs:string"/>
+		<xs:attribute name="height" type="xs:string"/>
+		<xs:attribute name="width" type="xs:string"/>
+		<xs:attribute name="origwidth" type="xs:string"/>
+		<xs:attributeGroup ref="hrefAttribs"/>
+	</xs:complexType>
+<xs:complexType name="imgZoomableType">
+		<xs:complexContent>
+			<xs:extension base="imgSimpleType">
+				<xs:attribute name="zoom" type="xs:boolean"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+<xs:complexType name="imgHeaderType">
+		<xs:complexContent>
+			<xs:extension base="imgType">
+				<xs:attribute name="type" use="required">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="mainimage"/>
+							<xs:enumeration value="subimage"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+<xs:complexType mixed="true" name="inputType">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element name="option" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType mixed="true">
+					<xs:attribute name="value" type="xs:string" use="required"/>
+					<xs:attribute name="disabled" type="xs:boolean"/>
+					<xs:attribute name="selected">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="selected"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="type" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="text"/>
+					<xs:enumeration value="password"/>
+					<xs:enumeration value="textarea"/>
+					<xs:enumeration value="hidden"/>
+					<xs:enumeration value="radio"/>
+					<xs:enumeration value="checkbox"/>
+					<xs:enumeration value="submit"/>
+					<xs:enumeration value="select"/>
+					<xs:enumeration value="file"/>
+					<xs:enumeration value="email"/>
+					<xs:enumeration value="url"/>
+					<xs:enumeration value="tel"/>
+					<xs:enumeration value="search"/>
+					<xs:enumeration value="color"/>
+					<xs:enumeration value="number"/>
+					<xs:enumeration value="range"/>
+					<xs:enumeration value="date"/>
+					<xs:enumeration value="time"/>
+					<xs:enumeration value="datetime"/>
+					<xs:enumeration value="datetime-local"/>
+					<xs:enumeration value="week"/>
+					<xs:enumeration value="month"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="required" type="xs:boolean"/>
+		<xs:attribute name="button" type="xs:anyURI"/>
+		<xs:attribute name="maxlength" type="xs:positiveInteger"/>
+		<xs:attribute name="rows" type="xs:positiveInteger"/>
+		<xs:attribute name="format" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="value" type="xs:string"/>
+		<xs:attribute name="size" type="xs:positiveInteger"/>
+		<xs:attribute name="autolocatedtext" type="xs:string"/>
+		<xs:attribute name="checked">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="checked"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="overwrite" type="xs:boolean"/>
+		<xs:attribute name="disabled" type="xs:string"/>
+<!-- not yet		<xs:attribute name="placeholder" type="xs:string"/>  -->
+		<xs:attribute name="autofocus" type="xs:string"/>
+		<xs:attribute name="autocorrect" type="xs:string"/>
+		<xs:attribute name="autocomplete" type="xs:string"/>
+		<xs:attribute name="autocapitalize" type="xs:string"/>
+		<xs:attribute name="step" type="xs:integer"/>
+		<xs:attribute name="max" type="xs:integer"/>
+		<xs:attribute name="min" type="xs:integer"/>
+		<xs:attribute name="width" type="xs:string"/>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType mixed="true" name="errorFormType">
+		<xs:all>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+		</xs:all>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+	</xs:complexType>
+<xs:complexType mixed="true" name="captchaType">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>  <!-- TODO -->
+		</xs:sequence>
+		<xs:attribute name="label" type="xs:string"/>
+		<xs:attribute name="value" type="xs:string"/>
+		<xs:attribute name="errormsg" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType mixed="true" name="ratingType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" name="item">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="1" minOccurs="1" name="ratingvalue">
+							<xs:complexType>
+								<xs:attribute name="label" type="xs:string" use="required"/>
+								<xs:attribute name="value" type="xs:string" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="empty" type="xs:string"/>
+					<xs:attribute name="full" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="class" type="xs:string"/>
+		<xs:attribute name="empty" type="xs:string"/>
+		<xs:attribute name="full" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="listItemsType">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="item">
+				<xs:complexType mixed="true">
+					<xs:sequence>
+						<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+						<xs:choice maxOccurs="unbounded" minOccurs="0">
+							<xs:element name="img" type="imgIconType"/>
+							<xs:element name="text" type="textLinkedType"/>
+							<xs:element name="richtext" type="textLinkedType"/>
+						</xs:choice>
+					</xs:sequence>
+					<xs:attributeGroup ref="hrefAttribs"/>
+					<xs:attribute name="id" type="xs:string"/>
+					<xs:attribute name="class" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+<xs:complexType name="itemNavType">
+		<xs:all>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="img" type="imgIconType"/>
+			<xs:element minOccurs="0" name="text" type="textType"/>
+		</xs:all>
+		<xs:attributeGroup ref="hrefAttribs"/>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="linkType">
+		<xs:all>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+		</xs:all>
+		<xs:attributeGroup ref="hrefAttribs"/>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType mixed="true" name="textType">
+		<xs:all>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+		</xs:all>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType mixed="true" name="textLinkedType">
+		<xs:all>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+		</xs:all>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+		<xs:attributeGroup ref="hrefAttribs"/>
+	</xs:complexType>
+<xs:complexType mixed="true" name="textFormType">
+		<xs:all>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element minOccurs="0" name="trackingparams" type="trackingParamsType"/>
+		</xs:all>
+		<xs:attribute name="id" type="xs:string"/>
+		<xs:attribute name="class" type="xs:string"/>
+		<xs:attribute name="for" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="textTeaserType">
+		<xs:complexContent>
+			<xs:extension base="textType">
+				<xs:attribute name="align">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="right"/>
+							<xs:enumeration value="left"/>
+							<xs:enumeration value="column-right"/>
+							<xs:enumeration value="column-left"/>
+							<xs:enumeration value="bottom"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+<xs:complexType name="textTableType">
+		<xs:complexContent>
+			<xs:extension base="textLinkedType">
+				<xs:attribute name="align">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="topdown"/>
+							<xs:enumeration value="inline"/>
+							<xs:enumeration value="top"/>
+							<xs:enumeration value="bottom"/>
+							<xs:enumeration value="left"/>
+							<xs:enumeration value="right"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+<xs:attributeGroup name="stylesAttribs">
+		<xs:attribute name="name" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="color"/>
+					<xs:enumeration value="bgcolor"/>
+					<xs:enumeration value="bgimage"/>
+					<xs:enumeration value="bgrepeat"/>
+					<xs:enumeration value="bgposition"/>
+					<xs:enumeration value="biscuit-padding"/>
+					<xs:enumeration value="biscuit-padding-left"/>
+					<xs:enumeration value="biscuit-padding-right"/>
+					<xs:enumeration value="borders"/>
+					<xs:enumeration value="text-align"/>
+					<xs:enumeration value="header-align"/>
+					<xs:enumeration value="line-height"/>
+					<xs:enumeration value="padding"/>
+					<xs:enumeration value="padding-top"/>
+					<xs:enumeration value="padding-bottom"/>
+					<xs:enumeration value="margin"/>
+					<xs:enumeration value="margin-top"/>
+					<xs:enumeration value="margin-bottom"/>
+					<xs:enumeration value="font-size"/>
+					<xs:enumeration value="font-family"/>
+					<xs:enumeration value="font-size-medium"/>
+					<xs:enumeration value="link-color"/>
+					<xs:enumeration value="header-color"/>
+					<xs:enumeration value="header-bgcolor"/>
+					<xs:enumeration value="header-bgimage"/>
+					<xs:enumeration value="header-bgrepeat"/>
+					<xs:enumeration value="header-bgposition"/>
+					<xs:enumeration value="border-width"/>
+					<xs:enumeration value="border-color"/>
+					<xs:enumeration value="border-style"/>
+					<xs:enumeration value="border-spacing"/>
+					<xs:enumeration value="image-border-width"/>
+					<xs:enumeration value="image-border-color"/>
+					<xs:enumeration value="image-border-style"/>
+					<xs:enumeration value="active-color"/>
+					<xs:enumeration value="active-bgcolor"/>
+					<xs:enumeration value="active-border"/>
+					<xs:enumeration value="active-border-style"/>
+					<xs:enumeration value="inactive-color"/>
+					<xs:enumeration value="inactive-bgcolor"/>
+					<xs:enumeration value="inactive-border"/>
+					<xs:enumeration value="inactive-border-style"/>
+					<xs:enumeration value="formbutton-color"/>
+					<xs:enumeration value="formbutton-bgcolor"/>
+					<xs:enumeration value="formbutton-border"/>
+					<xs:enumeration value="bgcolor2"/>
+					<xs:enumeration value="bgcolor3"/>
+					<xs:enumeration value="hr-width"/>
+					<xs:enumeration value="hr-border-style"/>
+					<xs:enumeration value="vertical-align"/>
+					<xs:enumeration value="vfPalette"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="value" type="xs:string" use="required"/>
+	</xs:attributeGroup>
+<xs:complexType name="stylesType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" name="style">
+				<xs:complexType>
+					<xs:attributeGroup ref="stylesAttribs"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+<xs:complexType name="classesType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" name="style">
+				<xs:complexType>
+					<xs:attributeGroup ref="stylesAttribs"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+	</xs:complexType>
+<xs:complexType name="pagingType">
+		<xs:sequence>
+			<xs:element maxOccurs="1" minOccurs="0" name="prev">
+				<xs:complexType>
+					<xs:attribute name="img" type="xs:string"/>
+					<xs:attribute name="text" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="desc">
+				<xs:complexType>
+					<xs:attribute name="text" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="next">
+				<xs:complexType>
+					<xs:attribute name="img" type="xs:string"/>
+					<xs:attribute name="text" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="removeunneedednav" type="xs:boolean"/>
+        <xs:attribute name="pagesizemax" type="xs:integer"/>
+	</xs:complexType>
+<xs:complexType name="mapparamsType">
+		<xs:choice maxOccurs="unbounded">
+            <xs:element maxOccurs="1" name="forcemarkersvisible" type="xs:boolean"/>
+			<xs:element maxOccurs="1" name="linktomapapp" type="xs:boolean"/>
+			<xs:element maxOccurs="1" name="latitude" type="xs:string"/>
+			<xs:element maxOccurs="1" name="longitude" type="xs:string"/>
+			<xs:element maxOccurs="1" name="zoom" type="xs:string"/>
+			<xs:element maxOccurs="1" name="key">
+				<xs:complexType mixed="true">
+					<xs:attribute name="url" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element maxOccurs="1" name="maptype" type="xs:string"/>
+			<xs:element maxOccurs="1" name="address" type="xs:string"/>
+			<xs:element maxOccurs="1" name="width" type="xs:string"/>
+			<xs:element maxOccurs="1" name="height" type="xs:string"/>
+			<xs:element maxOccurs="1" name="markers">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="marker">
+							<xs:complexType>
+								<xs:attribute name="latitude" type="xs:string"/>
+								<xs:attribute name="longitude" type="xs:string"/>
+								<xs:attribute name="character" type="xs:string"/>
+								<xs:attribute name="color" type="xs:string"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute name="provider" type="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">Supported: google</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+<xs:complexType name="mapnavigationType">
+		<xs:choice maxOccurs="unbounded" minOccurs="0">
+			<xs:element maxOccurs="1" name="plus" type="mapnavigationElement"/>
+			<xs:element maxOccurs="1" name="minus" type="mapnavigationElement"/>
+			<xs:element maxOccurs="1" name="left" type="mapnavigationElement"/>
+			<xs:element maxOccurs="1" name="right" type="mapnavigationElement"/>
+			<xs:element maxOccurs="1" name="up" type="mapnavigationElement"/>
+			<xs:element maxOccurs="1" name="down" type="mapnavigationElement"/>
+			<xs:element maxOccurs="1" name="center" type="mapnavigationElement"/>
+			<xs:element maxOccurs="1" name="typetoggle" type="mapnavigationElement"/>
+			<xs:element maxOccurs="unbounded" name="spacer"/>
+			<xs:element maxOccurs="unbounded" name="break"/>
+		</xs:choice>
+		<xs:attribute name="position" use="required">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">where to place the bar</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="top"/>
+					<xs:enumeration value="bottom"/>
+					<xs:enumeration value="both"/>
+					<xs:enumeration value="top,bottom"/>
+					<xs:enumeration value="top, bottom"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+<xs:complexType name="mapnavigationElement">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="event" type="scriptingEventType"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="alttext" type="xs:string"/>
+			<xs:choice maxOccurs="1" minOccurs="0">
+				<xs:element maxOccurs="1" minOccurs="0" name="icon" type="imgIconType"/>
+				<xs:element maxOccurs="1" minOccurs="0" name="imageset" type="imagesetSimpleType"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+<xs:group name="poiElements">
+		<xs:choice>
+			<xs:element name="address1" type="poidisplayElement"/>
+			<xs:element name="address2" type="poidisplayElement"/>
+			<xs:element name="address3" type="poidisplayElement"/>
+			<xs:element name="country" type="poidisplayElement"/>
+			<xs:element name="phone" type="poidisplayElement"/>
+			<xs:element name="fax" type="poidisplayElement"/>
+			<xs:element name="email" type="poidisplayElement"/>
+			<xs:element name="web" type="poidisplayElement"/>
+			<xs:element name="custom1" type="poidisplayElement"/>
+			<xs:element name="custom2" type="poidisplayElement"/>
+			<xs:element name="custom3" type="poidisplayElement"/>
+		</xs:choice>
+	</xs:group>
+<xs:complexType mixed="true" name="poiListingType">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="poiElements"/>
+			<xs:element name="distance" type="poidisplayElement"/>
+			<xs:element name="directionslink" type="textType"/>
+			<xs:element name="maplink">
+				<xs:complexType>
+					<xs:attribute name="target" type="xs:string"/>
+					<xs:attribute name="icon" type="xs:string"/>
+					<xs:attribute name="label" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute name="listid" type="xs:string"/>
+		<xs:attribute name="distance" type="xs:string"/>
+		<xs:attribute name="unit" type="xs:string"/>
+		<xs:attribute name="conditional" type="xs:string"/>
+		<xs:attribute name="maxitems" type="xs:integer"/>
+		<xs:attribute name="rel" type="xs:string"/>
+		<xs:attribute name="rev" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType mixed="true" name="poiDetailType">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:group ref="poiElements"/>
+		</xs:choice>
+		<xs:attribute name="itemid" type="xs:string"/>
+		<xs:attribute name="rel" type="xs:string"/>
+		<xs:attribute name="rev" type="xs:string"/>
+<!--		<xs:attribute name="trackingprovider" type="xs:string"/>
+ -->
+	</xs:complexType>
+<xs:complexType mixed="true" name="errorPoiType">
+		<xs:attribute name="code" type="xs:string" use="required"/>
+	</xs:complexType>
+<xs:complexType name="poidisplayElement">
+		<xs:attribute name="icon" type="xs:string"/>
+		<xs:attribute name="label" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="scriptingChildrenType"> <!-- events, functions, when, otherwise have the same children -->
+	</xs:complexType>
+<xs:complexType name="scriptingParamsType">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="action" type="scriptingActionType"/>
+		</xs:choice>
+		<xs:attribute name="name" type="xs:string" use="required"/>  <!-- TODO: Restrict the input? -->
+		<xs:attribute name="value" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="scriptingFunctionType">
+		<xs:complexContent>
+			<xs:extension base="scriptingChildrenType">
+				<xs:choice minOccurs="1" maxOccurs="unbounded">
+					<xs:element name="action" type="scriptingActionType"/>
+					<xs:element name="call" type="scriptingCallType"/>
+					<xs:element name="choose" type="scriptingChooseType"/>
+				</xs:choice>
+				<xs:attribute name="name" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+<xs:complexType name="scriptingEventType">
+		<xs:complexContent>
+			<xs:extension base="scriptingChildrenType">
+				<xs:choice minOccurs="1" maxOccurs="unbounded">
+					<xs:element name="action" type="scriptingActionType"/>
+					<xs:element name="call" type="scriptingCallType"/>
+					<xs:element name="choose" type="scriptingChooseType"/>
+				</xs:choice>
+				<xs:attribute name="type" type="xs:string" use="required"/>
+				<xs:attribute name="id" type="xs:string"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+<xs:complexType name="scriptingActionType">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="param" type="scriptingParamsType"/>
+			</xs:choice>
+			<xs:attribute name="name" type="xs:string"/>
+			<xs:attribute name="eval" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="scriptingCallType">
+			<xs:attribute name="function" type="xs:string" use="required"/>
+	</xs:complexType>
+<xs:complexType name="scriptingChooseType">
+		<xs:sequence>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="when" type="scriptingWhenType"/>
+			</xs:choice>
+			<xs:element name="otherwise" type="scriptingOtherwiseType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+<xs:complexType name="scriptingWhenType">
+		<xs:complexContent>
+			<xs:extension base="scriptingChildrenType">
+				<xs:choice minOccurs="1" maxOccurs="unbounded">
+					<xs:element name="action" type="scriptingActionType"/>
+					<xs:element name="call" type="scriptingCallType"/>
+					<xs:element name="choose" type="scriptingChooseType"/>
+				</xs:choice>
+				<xs:attribute name="test" type="xs:string" use="required"/> <!-- TODO: Restrict the input -->
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+<xs:complexType name="scriptingOtherwiseType">
+		<xs:complexContent>
+			<xs:extension base="scriptingChildrenType">
+				<xs:choice minOccurs="1" maxOccurs="unbounded">
+					<xs:element name="action" type="scriptingActionType"/>
+					<xs:element name="call" type="scriptingCallType"/>
+					<xs:element name="choose" type="scriptingChooseType"/>
+				</xs:choice>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+<xs:complexType name="rssParamsType">
+		<xs:all>
+			<xs:element minOccurs="0" name="showfeedheadline" type="xs:boolean"/>
+			<xs:element minOccurs="0" name="showheadline" type="xs:boolean"/>
+			<xs:element minOccurs="0" name="linkheadline" type="xs:boolean"/>
+			<xs:element minOccurs="0" name="showsummary" type="xs:boolean"/>
+			<xs:element minOccurs="0" name="linksummary" type="xs:boolean"/>
+			<xs:element minOccurs="0" name="showimage" type="xs:boolean"/>
+			<xs:element minOccurs="0" name="showcontent" type="xs:boolean"/>
+			<xs:element minOccurs="0" name="plaintext" type="xs:boolean"/>
+			<xs:element minOccurs="0" name="morelink" type="xs:string"/>
+			<xs:element minOccurs="0" name="backlink" type="xs:string"/>
+			<xs:element minOccurs="0" name="aligntext" type="xs:string"/>
+			<xs:element minOccurs="0" name="imgwidth" type="xs:string"/>
+			<xs:element minOccurs="0" name="imgheight" type="xs:string"/>
+		</xs:all>
+	</xs:complexType>
+<xs:complexType name="rssMappingType">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="feednodename" type="rssMappingElementType"/>
+			<xs:element name="feedheadlinename" type="rssMappingElementType"/>
+			<xs:element name="feedsubtitlename" type="rssMappingElementType"/>
+			<xs:element name="feeddatename" type="rssMappingElementType"/>
+			<xs:element name="feedlinkname" type="rssMappingElementType"/>
+			<xs:element name="feedimagename" type="rssMappingElementType"/>
+			<xs:element name="entryname" type="rssMappingElementType"/>
+			<xs:element name="entryheadlinename" type="rssMappingElementType"/>
+			<xs:element name="entryimagename" type="rssMappingElementType"/>
+			<xs:element name="entryteasername" type="rssMappingElementType"/>
+			<xs:element name="entrytextname" type="rssMappingElementType"/>
+			<xs:element name="entryidname" type="rssMappingElementType"/>
+			<xs:element name="entrydatename" type="rssMappingElementType"/>
+			<xs:element name="entrylinkname" type="rssMappingElementType"/>
+		</xs:choice>
+		<xs:attribute name="version" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="atom-1.0"/>
+					<xs:enumeration value="rss-2.0"/>
+					<xs:enumeration value="custom"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+<xs:complexType name="rssMappingElementType">
+		<xs:attribute name="name" type="xs:string"/>
+		<xs:attribute name="test" type="xs:string"/>
+		<xs:attribute name="attribute" type="xs:string"/>
+	</xs:complexType>
+<xs:complexType name="formdatawsparamsType">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="url" type="xs:string"/>
+			<xs:element name="login" type="xs:string"/>
+			<xs:element name="password" type="xs:string"/>
+			<xs:element name="mode" type="xs:string"/>
+			<xs:element name="type" type="xs:string"/>
+		</xs:choice>
+	</xs:complexType>
+<xs:complexType name="layoutType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">layout element</xs:documentation>
+		</xs:annotation>
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="layout" type="layoutType" maxOccurs="unbounded" minOccurs="0"/>
+			<xs:element name="view" type="viewType" maxOccurs="unbounded" minOccurs="0"/>
+			<xs:element name="multiview" type="multiviewType" maxOccurs="unbounded" minOccurs="0"/>
+			<xs:element name="flexview" type="flexviewType" maxOccurs="unbounded" minOccurs="0"/>
+		</xs:choice>
+		<xs:attributeGroup ref="UIDimensionRequiredAttributes"/>
+		<xs:attributeGroup ref="UIContainerAttributes"/>
+		<xs:attribute name="template">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="top"/>
+					<xs:enumeration value="left"/>
+					<xs:enumeration value="center"/>
+					<xs:enumeration value="right"/>
+					<xs:enumeration value="bottom"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+<xs:complexType name="multiviewType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">multiview element</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="view" type="viewType" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="UIDimensionOptionalAttributes"/>
+		<xs:attributeGroup ref="UIContainerAttributes"/>
+		<xs:attribute name="selectedindex" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>Numeric value of selected view index (0 based).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+<xs:complexType name="viewType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">view element</xs:documentation>
+		</xs:annotation>
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="view" type="viewType" maxOccurs="unbounded" minOccurs="0"/>
+			<xs:element name="multiview" type="multiviewType" maxOccurs="unbounded" minOccurs="0"/>
+			<xs:element name="flexview" type="flexviewType" maxOccurs="unbounded" minOccurs="0"/>
+			<xs:element name="container" maxOccurs="unbounded" type="containerType"/>
+			<!-- tentative only a subset of biscuits inside view -->
+			<xs:element name="ARTICLE" type="articleType"/>
+			<xs:element name="BUTTONMENU" type="menuType"/>
+			<xs:element name="FORM" type="formType"/>
+			<xs:element name="IMAGE" type="imageType"/>
+			<xs:element name="LIST" type="listType"/>
+			<xs:element name="PIPEDMENU" type="menuType"/>
+			<xs:element name="SEPARATOR" type="separatorType"/>
+			<xs:element name="TABBEDMENU" type="menuType"/>
+			<xs:element name="TABLE" type="tableType"/>
+			<xs:element name="TEASER" type="teaserType"/>
+			<xs:element name="TEXT" type="textBiscuitType"/>
+			<xs:element name="MAP" type="mapType"/>
+			<xs:element name="MEDIA" type="showfileType"/>
+		</xs:choice>
+		<xs:attributeGroup ref="UIDimensionOptionalAttributes"/>
+		<xs:attributeGroup ref="UIContainerAttributes"/>
+		<xs:attributeGroup ref="UIScrollerAttributes"/>
+	</xs:complexType>
+<xs:complexType name="flexviewType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">flexview element</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="item" type="flexItemType" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="UIDimensionOptionalAttributes"/>
+		<xs:attributeGroup ref="UIContainerAttributes"/>
+		<xs:attributeGroup ref="UIScrollerAttributes"/>
+		<xs:attribute name="flexflow" default="vertical">
+			<xs:annotation>
+				<xs:documentation>Flow direction of flexitems (horizontal or vertical)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="vertical"/>
+					<xs:enumeration value="horizontal"/>
+					<xs:enumeration value="landscape: vertical, portrait: horizontal"/>
+					<xs:enumeration value="landscape: horizontal, portrait: vertical"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="flexdimension">
+			<xs:annotation>
+				<xs:documentation>Flexible dimension of flexitems (width or height)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="width"/>
+					<xs:enumeration value="height"/>
+					<xs:enumeration value="landscape: width, portrait: height"/>
+					<xs:enumeration value="landscape: height, portrait: width"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="flexitems-gap" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Gap between flexitems (number)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="flexitems-width" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Expression for flexitem width dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="flexitems-height" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Expression for flexitem height dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="flexitems-minwidth" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Expression for flexitem minwidth (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="flexitems-minheight" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Expression for flexitem minheight (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+<xs:complexType name="flexItemType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">item element (FlexItem) of FlexView</xs:documentation>
+		</xs:annotation>
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="view" type="viewType" maxOccurs="unbounded" minOccurs="0"/>
+			<xs:element name="multiview" type="multiviewType" maxOccurs="unbounded" minOccurs="0"/>
+			<xs:element name="flexview" type="flexviewType" maxOccurs="unbounded" minOccurs="0"/>
+			<xs:element name="container" maxOccurs="unbounded" type="containerType"/>
+			<!-- tentative only a subset of biscuits inside view -->
+			<xs:element name="ARTICLE" type="articleType"/>
+			<xs:element name="BUTTONMENU" type="menuType"/>
+			<xs:element name="FORM" type="formType"/>
+			<xs:element name="IMAGE" type="imageType"/>
+			<xs:element name="LIST" type="listType"/>
+			<xs:element name="PIPEDMENU" type="menuType"/>
+			<xs:element name="SEPARATOR" type="separatorType"/>
+			<xs:element name="TABBEDMENU" type="menuType"/>
+			<xs:element name="TABLE" type="tableType"/>
+			<xs:element name="TEASER" type="teaserType"/>
+			<xs:element name="TEXT" type="textBiscuitType"/>
+			<xs:element name="MAP" type="mapType"/>
+			<xs:element name="MEDIA" type="showfileType"/>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Element ID</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="class" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>CSS class selector name</xs:documentation>
+			</xs:annotation>	
+		</xs:attribute>
+		<xs:attribute name="test" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>test condition (Conditionals evaluated on server side)</xs:documentation>
+			</xs:annotation>	
+		</xs:attribute>
+		<xs:attribute name="config" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Advanced configuration options (e.g.: config="position:absolute, overflow:hidden")</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+<xs:attributeGroup name="UIContainerAttributes">
+		<xs:attribute name="id" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Element ID</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="class" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>CSS class selector name</xs:documentation>
+			</xs:annotation>	
+		</xs:attribute>
+		<xs:attribute name="test" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>test condition (Conditionals evaluated on server side)</xs:documentation>
+			</xs:annotation>	
+		</xs:attribute>
+		<xs:attribute name="top" type="xs:string" default="0">
+			<xs:annotation>
+				<xs:documentation>Expression for top dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="left" type="xs:string" default="0">
+			<xs:annotation>
+				<xs:documentation>Expression for left dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="visible" type="xs:string" default="true">
+			<xs:annotation>
+				<xs:documentation>Expression for visibility (boolean value or conditional boolean e.g.: visible="portrait:true, landscape:false").</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="config" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Advanced configuration options (e.g.: config="position:absolute, overflow:hidden")</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="effect-type">
+			<xs:annotation>
+				<xs:documentation>Effect animation type.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="slide"/>
+					<xs:enumeration value="fade"/>
+					<xs:enumeration value="expand"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="effect-duration" type="xs:string" default="100">
+			<xs:annotation>
+				<xs:documentation>Duration of the animation in milliseconds.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="effect-transition">
+			<xs:annotation>
+				<xs:documentation>Transition timing function for the effect.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="easeIn"/>
+					<xs:enumeration value="easeInOut"/>
+					<xs:enumeration value="easeOut"/>
+					<xs:enumeration value="easeOutIn"/>
+					<xs:enumeration value="linear"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="display" default="block">
+			<xs:annotation>
+				<xs:documentation>Display style property</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="none"/>
+					<xs:enumeration value="block"/>
+					<xs:enumeration value="inline"/>
+					<xs:enumeration value="inherit"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="overflow" default="visible">
+			<xs:annotation>
+				<xs:documentation>Overflow style property</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="hidden"/>
+					<xs:enumeration value="visible"/>
+					<xs:enumeration value="inherit"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="position" default="absolute">
+			<xs:annotation>
+				<xs:documentation>Position style property</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="absolute"/>
+					<xs:enumeration value="relative"/>
+					<xs:enumeration value="static"/>
+					<xs:enumeration value="inherit"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="float" default="none">
+			<xs:annotation>
+				<xs:documentation>Float style property</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="none"/>
+					<xs:enumeration value="left"/>
+					<xs:enumeration value="right"/>
+					<xs:enumeration value="inherit"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="opacity" type="xs:string" default="100">
+			<xs:annotation>
+				<xs:documentation>Opacity style property (mumeric value between 0 and 100)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="zindex" type="xs:string" default="1">
+			<xs:annotation>
+				<xs:documentation>z-index style property (mumeric value between 1 and 1-999999999)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+    </xs:attributeGroup>
+<xs:attributeGroup name="UIScrollerAttributes">
+		<xs:attribute name="scroll" default="vertical">
+			<xs:annotation>
+				<xs:documentation>Enable scrolling of the view.</xs:documentation>
+			</xs:annotation>	
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="vertical"/>
+					<xs:enumeration value="horizontal"/>
+					<xs:enumeration value="landscape: horizontal, portrait: vertical"/>
+					<xs:enumeration value="landscape: vertical, portrait: horizontal"/>
+					<xs:enumeration value="both"/>
+					<xs:enumeration value="disabled"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="scrollbar-direction" default="vertical">
+			<xs:annotation>
+				<xs:documentation>If scroll is enabled scrollbar is also enabled by default. To disable set scrollbar-direction="disabled".</xs:documentation>
+			</xs:annotation>	
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="vertical"/>
+					<xs:enumeration value="horizontal"/>
+					<xs:enumeration value="landscape: horizontal, portrait: vertical"/>
+					<xs:enumeration value="landscape: vertical, portrait: horizontal"/>
+					<xs:enumeration value="both"/>
+					<xs:enumeration value="disabled"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="scrollbar-color" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Color of the scroll bar.</xs:documentation>
+			</xs:annotation>	
+		</xs:attribute>
+		<xs:attribute name="scrollbar-weight" type="xs:string" default="5">
+			<xs:annotation>
+				<xs:documentation>Thickness of the scroll bar.</xs:documentation>
+			</xs:annotation>	
+		</xs:attribute>
+	</xs:attributeGroup>
+<xs:attributeGroup name="UIDimensionRequiredAttributes">
+		<xs:attribute name="width" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Expression for width dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="height" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Expression for height dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+<xs:attributeGroup name="UIDimensionOptionalAttributes">
+		<xs:attribute name="width" type="xs:string" default="parent.width">
+			<xs:annotation>
+				<xs:documentation>Expression for width dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="height" type="xs:string" default="parent.height">
+			<xs:annotation>
+				<xs:documentation>Expression for height dimension (numeric value, percent or calculations in relation to the parent box).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+</xs:schema>

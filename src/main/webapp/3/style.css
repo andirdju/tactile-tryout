@@ -1,0 +1,42 @@
+body{
+	background:url("../images/blue-base.png");
+}
+
+#lay-root {
+	background:url("../images/background.png");
+	background-position:bottom left;
+	background-repeat:repeat-x;
+	background-size:contain;
+}
+
+.number-box {
+	width: 95%;
+	height: 95%;
+	border-style: solid;
+	border-width: 1px;
+	text-align: center;
+	vertical-align: middle;
+	z-index: 999;
+}
+
+.header-box {
+	width: 100%;
+	height: 100%;
+	border-style: none;
+	text-align: center;
+	vertical-align: middle;
+	background-color: grey;
+	background:url("images/header-bg.png");
+	z-index: 999;
+	font-size: 50px;
+	color:white;
+}
+
+#lay-root{
+	/*background:url("images/main-bg.jpg");*/	
+}
+
+.number-box table {
+	width: 100%;
+	height: 100%;
+}

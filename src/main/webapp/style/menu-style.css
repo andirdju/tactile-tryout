@@ -1,0 +1,29 @@
+body{
+	background:url("../images/blue-base.png");
+}
+
+#lay-root {
+	background:url("../images/background.png");
+	background-position:bottom left;
+	background-repeat:repeat-x;
+	background-size:contain;
+}
+
+.number-box {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.number-box table {
+	width: 100%;
+	height: 100%;
+}
+
+#lay-main-bot{
+	background:url("../images/glossy-background.png");
+	width: 100%;
+	height: 100%;
+}
+
